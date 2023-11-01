@@ -6,12 +6,12 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-from datetime import time
 import schedule
 import time as tm
 import pandas as pd
 import os
 import pyperclip
+import win32com.client as win32
 
 service = Service(ChromeDriverManager().install())
 browser = webdriver.Chrome(service = service)
@@ -71,9 +71,10 @@ def send_message():
       if pd.isna(archive):
         simple_send()
       else:
-        archive_send()  
+        archive_send()
 
-time_1 = '10:00'
+
+time_1 = '10:30'
 time_2 = '19:00'
 
 schedule.every(180).seconds.do(load_table)
@@ -81,6 +82,6 @@ schedule.every().day.at(time_1).do(send_message)
 schedule.every().day.at(time_2).do(send_message)
 
 while True:
-  schedule.run_pending()
-  tm.sleep(1)       
+      schedule.run_pending()
+      tm.sleep(1)
 
